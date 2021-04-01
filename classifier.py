@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 
-import nltk
+from bs4 import BeautifulSoup
+
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-from bs4 import BeautifulSoup
-from pandas.core.arrays import sparse
+import nltkmodules
 
 TOKEN_SPAM_PROB_FILE = 'SpamData/03_Testing/prob-spam.txt'
 TOKEN_HAM_PROB_FILE = 'SpamData/03_Testing/prob-nonspam.txt'
@@ -96,3 +96,6 @@ def is_spam(data, mode):
         'DOC_ID', 'WORD_ID']).sum().reset_index()
 
     print(sparse_matrix)
+
+
+is_spam('Hello boy', 2)
