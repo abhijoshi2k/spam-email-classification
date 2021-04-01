@@ -122,7 +122,7 @@ def is_spam(data, mode):
     sparse_matrix = make_sparse_matrix(word_columns_df, word_index).groupby([
         'DOC_ID', 'WORD_ID']).sum().reset_index().to_numpy()
 
-    full_matrix = make_full_matrix(sparse_matrix, vocab.shape[0])
+    full_matrix = make_full_matrix(sparse_matrix, vocab.shape[0]).to_numpy()
     print(type(full_matrix))
 
 
