@@ -1,3 +1,5 @@
+# Imports
+
 import pandas as pd
 import numpy as np
 
@@ -9,12 +11,20 @@ from nltk.tokenize import word_tokenize
 
 import nltkmodules
 
-TOKEN_SPAM_PROB_FILE = 'SpamData/03_Testing/prob-spam.txt'
-TOKEN_HAM_PROB_FILE = 'SpamData/03_Testing/prob-nonspam.txt'
-TOKEN_ALL_PROB_FILE = 'SpamData/03_Testing/prob-all-tokens.txt'
 
+# Constants
+
+PROB_SPAM = 0.310989
 vocab = pd.read_csv('SpamData/01_Processing/word-by-id.csv')
+prob_token_spam = np.loadtxt(
+    'SpamData/03_Testing/prob-spam.txt', delimiter=' ')
+prob_token_ham = np.loadtxt(
+    'SpamData/03_Testing/prob-nonspam.txt', delimiter=' ')
+prob_all_tokens = np.loadtxt(
+    'SpamData/03_Testing/prob-all-tokens.txt', delimiter=' ')
 
+
+# Functions
 
 def get_email(data, mode):
     if mode == 2:
@@ -108,6 +118,8 @@ def make_full_matrix(sparse_matrix, nr_words, doc_idx=0, word_idx=1, freq_idx=2)
     return full_matrix
 
 
+# Main Function
+
 def is_spam(data, mode):
     message_body = get_email(data, mode)
 
@@ -123,7 +135,14 @@ def is_spam(data, mode):
         'DOC_ID', 'WORD_ID']).sum().reset_index().to_numpy()
 
     full_matrix = make_full_matrix(sparse_matrix, vocab.shape[0]).to_numpy()
-    print(type(full_matrix))
+
+    joint_log_spam = full_matrix.dot(
+        np.log(prob_token_spam) - np.log(prob_all_tokens)) + np.log(PROB_SPAM)
+    print(joint_log_spam)
+
+    joint_log_ham = full_matrix.dot(
+        np.log(prob_token_ham) - np.log(prob_all_tokens)) + np.log(1 - PROB_SPAM)
+    print(joint_log_ham)
 
 
-is_spam('Hello hello boy http http', 2)
+is_spam('Dear Mr./Ms./Mrs. {Recipient\'s Name},\nThis is with reference to your job requirement on {portal name} for the role of Sales Manager. I truly believe that my qualifications and experience make me a perfect candidate for the job.\nI completed my MBA in Sales and Marketing from {Institute Name}. I have worked as an Area Sales Manager and Assistant Marketing Manager at {Company Name}. During my stint as Area Sales Manager, I conceptualised and executed a Customer Engagement Program that resulted in higher sales. As Assistant Marketing Manager, I worked on the planning and execution of a new product launch. With 4 years of experience in B2B sales and marketing, I have an in-depth understanding of the process. I am confident that I will be the right fit for the job.\n\nI have attached my CV to the email for your reference. Please have a look at it.\n\nI hope to meet you and discuss this opportunity further. Thank you for considering my application for the role.', 2)
