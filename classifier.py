@@ -120,12 +120,10 @@ def is_spam(data, mode):
     word_index = pd.Index(vocab.VOCAB_WORD)
 
     sparse_matrix = make_sparse_matrix(word_columns_df, word_index).groupby([
-        'DOC_ID', 'WORD_ID']).sum().reset_index()
-
-    sparse_matrix = sparse_matrix.to_numpy()
+        'DOC_ID', 'WORD_ID']).sum().reset_index().to_numpy()
 
     full_matrix = make_full_matrix(sparse_matrix, vocab.shape[0])
-    print(full_matrix)
+    print(type(full_matrix))
 
 
 is_spam('Hello hello boy http http', 2)
