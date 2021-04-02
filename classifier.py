@@ -138,7 +138,7 @@ def is_spam(data, mode):
 
     spam_email_prob = PROB_SPAM
     ham_email_prob = 1-PROB_SPAM
-    denominator = 1
+    # denominator = 1
 
     for j in range(full_matrix.shape[1]):
 
@@ -152,8 +152,9 @@ def is_spam(data, mode):
                 ham_email_prob = ham_email_prob * \
                     (prob_token_ham[j]**full_matrix[0, j])
 
-            denominator = denominator * prob_all_tokens[j]
+            # denominator = denominator * prob_all_tokens[j]
 
+    # print(spam_email_prob/denominator > ham_email_prob/denominator)
     print(spam_email_prob > ham_email_prob)
 
     # joint_log_spam = full_matrix.dot(
