@@ -154,7 +154,7 @@ def is_spam(data, mode):
 
             denominator = denominator * prob_all_tokens[j]
 
-    print(spam_email_prob/denominator > ham_email_prob/denominator)
+    print(spam_email_prob > ham_email_prob)
 
     # joint_log_spam = full_matrix.dot(
     #     np.log(prob_token_spam+0.000000000000001) - np.log(prob_all_tokens+0.000000000000001)) + np.log(PROB_SPAM)
