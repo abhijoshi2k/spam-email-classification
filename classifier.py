@@ -147,10 +147,21 @@ def is_spam(data, mode):
             if prob_token_spam[j] > 0:
                 spam_email_prob = spam_email_prob * \
                     (prob_token_spam[j]**full_matrix[0, j])
+                if spam_email_prob == 0:
+                    spam_email_prob = prev_spam
+                    ham_email_prob = prev_ham
+                    break
 
             if prob_token_ham[j] > 0:
                 ham_email_prob = ham_email_prob * \
                     (prob_token_ham[j]**full_matrix[0, j])
+                if ham_email_prob == 0:
+                    spam_email_prob = prev_spam
+                    ham_email_prob = prev_ham
+                    break
+
+            prev_spam = spam_email_prob
+            prev_ham = ham_email_prob
 
             # denominator = denominator * prob_all_tokens[j]
 
