@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from sklearn.utils import _message_with_time
 
 import nltkmodules
 
@@ -27,20 +28,16 @@ prob_all_tokens = np.loadtxt(
 # Functions
 
 def get_email(data, mode):
-    if mode == 2:
-        return data
+    body = False
+    lines = []
 
-    else:
-        body = False
-        lines = []
+    for line in data:
+        if body or mode == 1:
+            lines.append(line)
+        elif line == '\n':
+            body = True
 
-        for line in data:
-            if body or mode == 1:
-                lines.append(line)
-            elif line == '\n':
-                body = True
-
-        return '\n'.join(lines)
+    return '\n'.join(lines)
 
 
 def clean_message_no_html(message, stop_words):
@@ -120,8 +117,12 @@ def make_full_matrix(sparse_matrix, nr_words, doc_idx=0, word_idx=1, freq_idx=2)
 
 # Main Function
 
-def is_spam(data, mode):
-    message_body = get_email(data, mode)
+def is_spam(data, mode=2):
+
+    message_body = data
+
+    if(mode != 2):
+        message_body = get_email(data, mode)
 
     clean_message = clean_message_no_html(
         message_body, stop_words=set(stopwords.words('english')))
