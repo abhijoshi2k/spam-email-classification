@@ -1,8 +1,9 @@
 # Imports
 
-import json
 import pandas as pd
 import numpy as np
+
+import json
 
 from bs4 import BeautifulSoup
 
