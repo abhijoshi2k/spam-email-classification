@@ -197,7 +197,7 @@ def is_spam(data, mode=2, classifier='manual'):
         data_list.append(data)
 
         doc_term_matrix = vectorizer.transform(data_list)
-        print(xgb_classifier.predict(doc_term_matrix))
+        print(xgb_classifier.predict(doc_term_matrix)[0] == 1)
 
 
 is_spam('Greeting from CSI-SIES GST,\nI hope this email finds you well.\n\nIf you have not yet submitted your abstracts, please submit it as soon as possible so that the evaluation process of the abstracts can be started and we can give you an update whether your abstract is selected or not.\n\nIn case of any other queries, you can drop in a mail on our official email ID or you can contact us:\n\n1. Sangeeth Arun, Secretary, CSI SIESGST: 9167221000\n2. Sharan Murli, Joint Secretary, CSI SIESGST: 9167754246\n\nPlease ignore this message if you have already submitted the abstract.\n\nThank You.', classifier='xgb')
