@@ -200,7 +200,7 @@ def is_spam(data, mode=2, classifier='manual'):
         print(xgb_classifier.predict(doc_term_matrix)[0] == 1)
 
 
-is_spam('Greeting from CSI-SIES GST,\nI hope this email finds you well.\n\nIf you have not yet submitted your abstracts, please submit it as soon as possible so that the evaluation process of the abstracts can be started and we can give you an update whether your abstract is selected or not.\n\nIn case of any other queries, you can drop in a mail on our official email ID or you can contact us:\n\n1. Sangeeth Arun, Secretary, CSI SIESGST: 9167221000\n2. Sharan Murli, Joint Secretary, CSI SIESGST: 9167754246\n\nPlease ignore this message if you have already submitted the abstract.\n\nThank You.', classifier='xgb')
+is_spam('Greeting from CSI-SIES GST,\nI hope this email finds you well.\n\nIf you have not yet submitted your abstracts, please submit it as soon as possible so that the evaluation process of the abstracts can be started and we can give you an update whether your abstract is selected or not.\n\nIn case of any other queries, you can drop in a mail on our official email ID or you can contact us:\n\n1. Sangeeth Arun, Secretary, CSI SIESGST: 9167221000\n2. Sharan Murli, Joint Secretary, CSI SIESGST: 9167754246\n\nPlease ignore this message if you have already submitted the abstract.\n\nThank You.')
 
 is_spam('I ended up figuring out the problem. This isn\'t a problem with axios but in your react development environment the component is rendered twice if you\'re in StrictMode. The purpose of this to uncover unpredicted side-effects, it doesn\'t happen in production', classifier='xgb')
 
