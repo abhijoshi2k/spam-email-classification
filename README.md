@@ -18,3 +18,7 @@ The algorithms are:
     <li>Multinomial Naive Bayes (Excluded)</li>
     <li>Manually coded Naive Bayes (Included)</li>
 </ul>
+
+## Large Files
+
+`SpamData/03_Testing/test-features.txt` is removed and would need to be generated.
