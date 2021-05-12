@@ -112,3 +112,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# VERY LARGE FILES
+SpamData/03_Testing/test-features.txt
